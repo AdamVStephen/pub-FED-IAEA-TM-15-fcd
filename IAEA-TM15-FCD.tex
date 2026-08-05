@@ -1,0 +1,636 @@
+%% 
+%% Copyright 2007-2024 Elsevier Ltd
+%% 
+%% This file is part of the 'Elsarticle Bundle'.
+%% ---------------------------------------------
+%% 
+%% It may be distributed under the conditions of the LaTeX Project Public
+%% License, either version 1.3 of this license or (at your option) any
+%% later version.  The latest version of this license is in
+%%    http://www.latex-project.org/lppl.txt
+%% and version 1.3 or later is part of all distributions of LaTeX
+%% version 1999/12/01 or later.
+%% 
+%% The list of all files belonging to the 'Elsarticle Bundle' is
+%% given in the file `manifest.txt'.
+%% 
+%% Template article for Elsevier's document class `elsarticle'
+%% with numbered style bibliographic references
+%% SP 2008/03/01
+%% $Id: elsarticle-template-num.tex 249 2024-04-06 10:51:24Z rishi $
+%%
+%%\documentclass[preprint,12pt]{elsarticle}
+
+\newif\ifpreprint
+\preprinttrue
+%\preprintfalse
+%
+
+\ifpreprint
+\documentclass[preprint]{elsarticle}
+\else
+\documentclass[5p]{elsarticle}
+\fi
+
+%% Use the option review to obtain double line spacing
+%% \documentclass[authoryear,preprint,review,12pt]{elsarticle}
+
+%% Use the options 1p,twocolumn; 3p; 3p,twocolumn; 5p; or 5p,twocolumn
+%% for a journal layout:
+%% \documentclass[final,1p,times]{elsarticle}
+%% \documentclass[final,1p,times,twocolumn]{elsarticle}
+%% \documentclass[final,3p,times]{elsarticle}
+%% \documentclass[final,3p,times,twocolumn]{elsarticle}
+%% \documentclass[final,5p,times]{elsarticle}
+%% \documentclass[final,5p,times,twocolumn]{elsarticle}
+
+%% For including figures, graphicx.sty has been loaded in
+%% elsarticle.cls. If you prefer to use the old commands
+%% please give \usepackage{epsfig}
+
+%% The amssymb package provides various useful mathematical symbols
+\usepackage{amssymb}
+%% The amsmath package provides various useful equation environments.
+\usepackage{amsmath}
+%% The amsthm package provides extended theorem environments
+%% \usepackage{amsthm}
+
+%% The lineno packages adds line numbers. Start line numbering with
+%% \begin{linenumbers}, end it with \end{linenumbers}. Or switch it on
+%% for the whole article with \linenumbers.
+%% \usepackage{lineno}
+
+% Own Packages
+%\usepackage{float}
+\usepackage{nomencl}
+\makenomenclature
+% Take nomenclature title from a section named Glossary to conform to Elsevier guidance for authors
+\renewcommand{\nomname}{\vspace{-.25in}}
+
+\journal{Fusion Engineering and Design}
+
+\begin{document}
+
+\begin{frontmatter}
+
+%% Title, authors and addresses
+
+%% use the tnoteref command within \title for footnotes;
+%% use the tnotetext command for theassociated footnote;
+%% use the fnref command within \author or \affiliation for footnotes;
+%% use the fntext command for theassociated footnote;
+%% use the corref command within \author for corresponding author footnotes;
+%% use the cortext command for theassociated footnote;
+%% use the ead command for the email address,
+%% and the form \ead[url] for the home page:
+%% \title{Title\tnoteref{label1}}
+%% \tnotetext[label1]{}
+%% \author{Name\corref{cor1}\fnref{label2}}
+%% \ead{email address}
+%% \ead[url]{home page}
+%% \fntext[label2]{}
+%% \cortext[cor1]{}
+%% \affiliation{organization={},
+%%             addressline={},
+%%             city={},
+%%             postcode={},
+%%             state={},
+%%             country={}}
+%% \fntext[label3]{}
+
+\title{Fusionics Components Development}
+
+%% use optional labels to link authors explicitly to addresses:
+%% \author[label1,label2]{}
+%% \affiliation[label1]{organization={},
+%%             addressline={},
+%%             city={},
+%%             postcode={},
+%%             state={},
+%%             country={}}
+%%
+%% \affiliation[label2]{organization={},
+%%             addressline={},
+%%             city={},
+%%             postcode={},
+%%             state={},
+%%             country={}}
+
+	\author[UKAEA]{A.V.~Stephen} %% Author name
+	%\author[UKAEA]{A.V.~Stephen\corref{cor1}} %% Author name
+	\ead{adam.stephen@ukaea.uk}
+%% \author{Name\corref{cor1}\fnref{label2}}
+%% \ead{email address}
+\author[UKAEA]{A.~Goodyear}
+
+%% Author affiliation
+%\affiliation{organization={Computing Division, United Kingdom Atomic Energy Authority},%Department and Organization
+	\affiliation[UKAEA]{organization={United Kingdom Atomic Energy Authority},%Organization
+            addressline={Culham Campus}, 
+            city={Abingdon},
+            postcode={OX14 3DB}, 
+            state={Oxfordshire},
+            country={United Kingdom}}
+
+%% Abstract
+\begin{abstract}
+%% Text of abstract
+
+Fusionics is an emerging concept that brings together systems engineering, software, and electronic systems to deliver industrial-grade control and protection solutions for fusion power plants. It aims to define a set of standards against which interoperable components can be designed, developed, and qualified, ensuring they are fit for purpose and capable of supporting robust operation in future fusion facilities.
+
+This paper reports on the outcomes of the Fusionics Components Development Project delivered by UKAEA and Cosylab. The project comprised five complementary workstreams spanning both technical and commercial development. The technical workstreams addressed key challenges in real-time software, FPGA-based firmware systems, and high-performance deterministic networking. Use cases were selected based on requirements from MAST-U, with solutions designed to deliver near-term value while also exemplifying a longer-term vision for interoperability.
+
+The funding programme placed strong emphasis on industrial engagement and commercial relevance. This was addressed through the production of business development reports, which connect technical results to Fusionics architectural studies. These commercial outputs are intended to communicate the Fusionics vision to a broad range of stakeholders, particularly senior decision-makers, with the aim of building multi-organisational support to enable the development and adoption of shared standards.
+\end{abstract}
+
+%%Graphical abstract
+%% TODO: This is recommended
+%\begin{graphicalabstract}
+%\includegraphics{grabs}
+%\end{graphicalabstract}
+
+%% TODO: This is recommended
+%%Research highlights
+%%\begin{highlights}
+%\item Research highlight 1
+%\item Research highlight 2
+%\end{highlights}
+
+
+%% main text
+%%
+
+% RENAME Materials and Methods, but that is the spirit
+\section{Introduction}
+
+Fusion control ecosystem comprises platforms, tools, initiatives
+Current generation experiment, next generation demonstrator, FOAK power point, fleat power plant.
+STEP : build industrial grade supply chain as well as controls.
+
+Supply chain engagement activities include
+- Cross community promotion of standards, frameworks.
+- Soft promotion via open source sharing.
+- Coordinated promotion through formal funded collaboration (cite PCSSP).
+
+Traget outcomes must drive
+- Standardisation on terminology, methodology, approach to qualification and certifications.
+- Pathway to modular reusable solutions to avoid recurring engineering cost and risk.
+- Narrow and reuse patterns, broaden and diversify new technologies and innovations. 
+- Workforce development and growth. Transferable skills and knowledge.
+- Knowledge management, assurance and maintainabity.
+- Cross cite FISA, Humphreys, CYD
+
+Hypothesis : there is a supply chain gap to deliver industrial quality fusion 
+control systems.  It is a specialist area currently delivered by low TRL 
+research and development teams.  A credible commercial approach requires 
+interdisciplinary teams that bring together domain understanding, with
+electronics, computer science, and control theory skills.
+The word 'fusionics' has been coined to encompass these ideas.
+It is intended to stimulate activity leading to solutions in this space.
+
+
+Intent.  To illustrate Fusionics practically we need
+
+- Open Architecture and eventually consistent Ontology
+- Reference Implementations to make abstract descriptions real, and actionable
+- Integrated Demonsrtations
+
+\section{Methodology}
+
+Within the UK, the Fusion Futures programme put out a call for projects to 
+% Summarise the FF programme goals.
+% Emphasise the industrial engagement.
+
+A proposal was submitted on the theme of fusionics.  This was successful and received funding.
+A tender process was carried out to select an industrial partner.  Cosylab were the winning
+bidder
+
+% Careful with the above,
+
+The field of industrial automation informs the expectations for fusion control systems.
+Fusion power plants will be large, distributed, complex systems of systems.
+Solutions must be modular and composable to enable short term procurement
+and long term maintainability.  
+
+Workstreams
+
+1) Real-time software frameworks
+2) Real-time firmware frameworks
+3) Qualification and certification for real-time communications
+4) Commercialisation
+5) Architecture
+
+
+Standards ISO emerge from combination of requirements, design, but also assessing working solutions.
+
+\section{Results}
+
+\subsection{Workstream 1 : Software Frameworks}
+
+MIL, HIL, PIL, SIL background motivation.
+
+CMS
+
+HIL 
+
+
+\subsubsection{Configuration Management System}
+
+% TODO: Citation
+JET operations were supported by a powerful configuration management system called Level-1.
+This software suite provided a parameter database, validation codes, and high level 
+user interfaces to prepare the machine for operations.
+% TODO: add more description
+
+The JET solution evolved incrementally, and delivered solutions for experimental class devices.
+Looking to the future needs of fusion power plants, a research and development project
+proposed an architecture and proof-of-concept implementation for an equivalent tool.
+
+The work started by researching real-time control frameworks used in fusion and adjacent domains, examining how each framework handles configuration internally and what gaps exist when managing configurations at the facility level across multiple frameworks simultaneously.
+
+Based on this research, a conceptual design was defined for a Configuration Management System capable of abstracting over different real-time frameworks via a plugin-based architecture. The design addresses the full scope of a fusion facility, encompassing machine systems, devices, and components organised in a logical hierarchy, alongside operators with designated roles, structured approval workflows, and comprehensive audit capabilities.
+
+To validate the key architectural concepts and demonstrate feasibility, a software prototype was developed. The prototype implements the core governance mechanisms including role-based access control, multi-stage validation, configuration inheritance, and integrity checking, and serves as a concrete proof-of-concept for the conceptual design.
+
+\subsubsection{HIL Testing Framework}
+
+Modern software is qualified for production through rigorous regression testing.
+Best practice is to automate this in Continuous Integration (CI) harnesses.
+
+Control software must ultimately be converted into algorithms running in hardware.
+Testing Hardware-In-the-Loop (HIL) is important for two reasons.  Firstly, to 
+verify that performance expectations or predictions are achieved in practice.
+Secondly, to examine stability and robustness of the process in long duration tests.
+There are many potential failure routes which can contribute to significant outliers
+in control cycle time.
+
+Connecting CI systems to hardware has a number of non-trivial additional 
+requirements.  Indeed, there is a market in COTS HIL testing solutions.  
+Commercial vendors include Opal-RT, NI, and Speedgoat.
+
+In addition to these purely technical aspects, it is important to link 
+test definitions to system requirements and performance requirements.
+This allows teams to understand the intent behind a test, the
+justification for the cost that implementing the test incurs,
+and to interpret the significance of test results.
+
+The task consisted of defining and structuring the system-level foundation for a Hardware-in-the-Loop (HIL) testing framework that would cover fusion related use cases. This included formalizing the problem statement, identifying system boundaries and external interfaces, eliciting and structuring functional and non-functional requirements, analysing operational use cases, and consolidating the research findings into a coherent architectural baseline. In addition, a demonstration case was implemented using real hardware as a proof of concept to validate key assumptions and confirm feasibility of the proposed approach.
+A key capability developed was the integration of EPICS Channel Access as a common communication layer across heterogeneous environments. The work demonstrated how LabVIEW, Python, and RTF-based function blocks can all interoperate through standardised process variables, enabling language- and platform-agnostic access to hardware signals. This approach proved robust both for interactive demonstration and for automated regression testing, and provides a reusable integration pattern applicable to other UKAEA and fusion-community hardware.
+
+On the software engineering side, the project resulted in a bespoke test automation framework built on pytest, FastAPI, and SQLite, featuring real-time WebSocket output streaming, structured test steps with entry/dwell/exit phases, a configurable alarm evaluator, and a stimulus generation library. Complementing these, a web-based GUI was developed to give operators a single interface for test discovery, execution, live monitoring, historical comparison, and self-contained HTML report generation. The combination of these components reflects a mature understanding of how operator-facing tooling and automated CI pipelines can share the same underlying test infrastructure.
+
+Deliverables:
+
+A baseline architectural document serving as the primary reference for the HIL framework, containing:
+
+Structured fusion-related use cases (nominal and fault scenarios)
+
+System-level functional and non-functional requirements
+
+High-level system design and architectural rationale
+
+Identified assumptions, constraints, and risks
+
+A detailed description of the implemented hardware proof-of-concept demonstration, including setup, execution, and observed results.
+
+The engineering activity to build a test rig for a given real-time application is
+generally similar for a wide class of systems.  
+
+
+% Potential figure from 
+% https://ukaeauk.sharepoint.com/:b:/r/sites/FF-CD-FCD-P21-10041-Ext/Shared%20Documents/P%20172%20-%20Final%20deliverables/WS1/Task%202%20-%20Hardware%20in%20the%20Loop%20Testing/HIL_Presentation_ARCH.pdf?d=w816f1f42d91e46c488486110c7127714&csf=1&web=1&e=FuhrAC
+
+\subsubsection{Case Study : LabVIEW Device Framework Architecture}
+
+National Instruments LabVIEW is widely used for control and instrumentation projects.
+It is a good example of an ecosystem which provides reusable components and a rich 
+toolset to enable rapid development.   
+
+However, as with all software development tools, there remains a need to develop
+specific architectural patterns as to how they should be used to achieve coherence
+and maintainability in the long term.
+
+A case study was carried out to review a UKAEA LabVIEW solution based on Cosylab
+long term experience of managing such systems.   
+
+This contributed to explaining the requirement for meta tooling such as the CMS
+and HIL agnostic solutions.
+
+\subsubsection{Case Study : Simulink Generated Code}
+
+Three fusion specific real-time control frameworks are well known to the community :
+GA-PCS [cite], MARTe2 [cite], and ITER RTF [cite].  Each of these frameworks has
+developed a feature which enables integration of models developed in Simulink 
+and automatically convered to C++ source code.
+
+A short study was carried out to examine to what extent the integration workflows
+support reuse of a given Simulink model.  In terms of the code generated models,
+all three framework workflows are equivalent.  Models fit for code generation 
+have some constraints in the Simulink blocks which can be used.  Settings for code generation
+governing signal interface conventions, parameter handling, and solver type
+are common to all three frameworks.  However, there are variations in the integration path.
+
+We learned that achieving cross-framework portability is not a purely technical challenge, but also a process and standardisation challenge — the absence of a common modelling convention across the fusion community is itself a significant barrier. This insight shifted our understanding from "how do we port code" to "how do we design code that does not need porting."
+
+ The work also reinforced the importance of separating algorithmic design from framework-specific integration concerns and demonstrated that this separation is achievable in practice through disciplined application of Simulink modelling rules and the Embedded Coder C API.
+
+The conceptual framework and design rules established during this task provide a solid and reusable foundation for future projects involving multi-framework control system development.
+
+\subsection{Workstream 2}
+
+The MAST-U plasma control system currently requires analogue signal interfaces from diagnostic systems.
+This has a number of constraints, particularly for diagnostics which natively generate digital outputs, and
+which therefore have to introduce a DAC/ADC bridge to achieve integration.
+
+During the 2026 maintenance period, MAST-U will replace 384 channels of analogue magnetics diagnostics with
+real-time digital integrator (RTDI) upgrades.  The resulting
+
+% cite
+TODO: motivate DPDK [ cite ]
+
+\subsubsection{Component UDP Receiver}
+This task extended the existing DPDK multi-queue UDP receiver (dpdk_mp_udp) to gate packet acquisition on an external hardware trigger, aligning latency measurements with the true start of a data acquisition window. A dedicated trigger thread listens for an External Timestamp (EXTTS) event on a configurable PTP device and, on a valid trigger, publishes the hardware timestamp T0 to worker cores via atomic flags. Worker cores spin on the trigger flag before starting packet reception and use T0 as the absolute time reference for converting FPGA tick counter values into latency measurements.
+
+\subsubsection{Component UDP Sender}
+This task implemented a DPDK-based UDP sender to complement the existing receiver programs, enabling loopback latency measurement. The architecture follows a primary/secondary DPDK multi-process model: a primary TX server process owns the NIC and manages hardware TX queues, while one or more secondary producer processes independently enqueue packets into shared rte_ring software queues. This allows multiple producers to target different TX queues concurrently without owning the NIC directly. 
+
+The TX server reads a YAML configuration file to set up one software ring and one hardware TX queue per logical channel and launches one worker core per queue to drain the rings and transmit packets. Rings are created as multi-producer/single-consumer by default to support multiple concurrent producers. Each producer runs as a DPDK secondary process, enqueuing RTDN-formatted UDP packets at a configurable rate with an embedded TX timestamp, enabling the receiver to compute end-to-end loopback latency. 
+
+\subsubsection{Component Port Monitoring}
+% task
+This task developed a command-line tool for monitoring the port-level health of managed network switches over SNMPv2c. The goal was to provide real-time visibility into switch port behaviour — link status, error rates, and packet discard rates — for the RTDN programme's network infrastructure. The tool polls a target device at a configurable interval, computes per-second counter deltas between polls, and reports on ports exhibiting abnormal behaviour. Interface discovery and management port identification are performed automatically at startup. Output is written to a rotating log file and optionally streamed to the console. 
+
+The tool distinguishes between errors (malformed frames) and discards (valid packets dropped due to congestion or policy), a distinction documented in the README to aid operator interpretation. 
+
+\subsection{FPGA Based Solutions}
+
+
+\subsubsection{NIMBUS - Deep Learning}
+
+
+NIMBUS - A family of real-time products.
+
+% Lose or cut down the history to focus on what exactly was done in the Cosylab work
+% Material also taken from the Final Report for P172
+
+Initially funded through the UK Government Office of Tech Transfer, UKAEA have been developing 
+a signal processing platform targeting plasma control system requirements. The concept brings
+together COTS modules based around high performance FPGA devices combined with a range of
+digitisers and communications channels. A modular firmware design factors out the recurring
+engineering tasks for data flow and integrated communications, from the real-time algorithms
+that extract physics information from raw sensor data.  
+
+The first application for this platform was to support fast neutron diagnostics.  Combining
+8 channels sampling at 250Msps, the initial proof of concept unit was the "Nimbus 2000".
+Based on the success of this project, the range has been extended to cover different 
+frequency and channel density requirements.  It now covers all of the main needs for the
+MAST-U measurement set.
+
+One of the key design principles for the NIMBUS platform is to support a broad range
+of data acquisition and real-time processing.  The platform 
+% 3 interfaces : streaming, real-time, supervisory
+
+
+The task was about implementing Xilinx DPUCZDX8G v4.1 Deep Learning Processing Unit for AI/ML inference acceleration onto Nimbus board. A pre-existing ML model (ResNet50) for image classification was used for testing. The deliverables are: 
+
+Koheron project that includes FPGA implementation of DPU core. 
+
+Petalinux project which includes DPU specific modifications and Python application that loads the ML model to DPU core and runs inference. UKAEA only uses kernel part of Petalinux and joins it with Ubuntu root file system.  
+
+Bash script that installs Vitis AI libraries to Ubuntu which enables running Python application mentioned in the previous point.  
+
+\subsubsection{Iris DMA}
+The goal of this task was to enable DMA engine on the Iris board, implement a DMA bypass controller and to make a user-space C program that can configure the DMA via the DMA bypass controller going through the PCIe bus. The deliverables are:
+
+C library for controlling Xilinx XDMA with interfaces for DMA channel control, bypass descriptor transfers, and high-level abstractions for controlling ADC emulators and bypass controller.
+
+Utilities for reading/writing registers, configuring DMA transfers, and managing memory-mapped device regions with automatic page-alignment handling.
+
+Documentation and demo script
+
+\subsubsection{Ultrafast Divertor Spectroscopy}
+
+The initial task was to develop cocotb unit tests and then top-level tests to validate the VHDL implementation of the UFDS tracking algorithm. The task increased into integration into D-TACQ ACQ2106 platform, customer interface with DIFFER and commissioning of the platform on site.
+
+The project deliverables are all in the same repository and are:
+
+VHDL UFDS top level implementation
+
+Python reference algorithm class and testbenches (unit and top level)
+
+D-TACQ integration modules + UDP packetizer + ADC input multiplexer + Data emulator for debug
+
+Documentation in Markdown in the repository
+
+\subsubsection{RFSoC}
+The goal of phase one was to bring-up the reference clocks for the RFSOC ADCs and DACs. PYNQ driver code for RFSOC was already ported to Koheron but the script for reference clocks bring-up had no effect.
+
+As part of this phase, logging code was temporarily (removed after successfully debug) added to the C++ driver and used to find the issue blocking the clocks successful bring-up. The identified issue were default SPI driver settings (bitrate, parity ...) that did not match the settings required by the on-board clocking chip that provides the RFSOC reference clocks. The solution was to manually pass exact SPI settings to the SPI driver when it is called to transfer configuration parameters to the on-board clocking chip. Once this was done, the printed clocks by the clocks configuration script (read from the RFIP primitive in PL) started showing non-zero values.
+
+The goal of phase two of this task was two-fold: add support for UIO devices to Koheron; and to make drivers to control the RFdc (RF Data Converter) IP on the board by leveraging external XRFdc library.
+
+To support the UIO devices, the libmetal library was added to the Koheron framework and a UioDev class was added to the Context. A proof-of-concept device driver was written that demonstrates the use of the UioDev class and tests the connection to the board.
+
+To control the RFdc IP on the board via the XRFdc library, some changes to the Koheron framework were also required; the libmetal support (same as for the UIO support above) and support for project makefiles, that enables more complex build steps for the device drivers. A full driver for the RFdc IP was made by wrapping the XRFdc library in the C++ driver and by providing corresponding functions in the Python driver.
+
+Additionally, we tested direct access to the DDR4 memory from the PS side.
+
+The deliverables for this part include:
+
+Patched version of Koheron framework that supports libmetal library, accessing devices via UIO, and supports project makefiles.
+
+PoC driver that demonstrates access to the device via the UIO.
+
+Full driver to control the RFdc IP that leverages the external XRFdc library.
+
+A test script that demonstrates access to the DDR4 memory from the PS side.
+
+Documentation.
+
+\subsubsection{HotRIO Aggregator}
+
+This task was defined in collaboration with Fusion for Energy. The goal was to create a proof-of-concept aggregator device on Lattice ECP5 platform for the Digital integrators (used for magnetic field measurements at ITER). This would mean F4E could use a cheap and lightweight aggregator device to make the magnetic field measurement equipment compact and mobile. The aggregator device would be able to accept data streams from four Digital integrators and send the data over a single HotRIO interface. 
+
+For development and testing, two devices were planned – the first as the aggregator (master ECP5 board) and the second (slave ECP5 board) to receive HotRIO packets and forward them on to a UDP gigabit interface. The UDP packets can then be gathered and verified from any PC. All functionality of the master ECP5 board can be tested and verified in this way. 
+
+Testing on the finished devices was done to confirm the finished prototype enabled hot plugging of Digital integrators and supported arbitrary length Digital integrator UTP cables. Captured UDP packets were checked for data continuity and CRC errors – all tests passed without issue. A stress test checking the Digital integrators data stream decoding stability was also ran for 6 full days before a single CRC error was detected.  
+
+The deliverables for this task include: 
+
+Custom Digital integrators breakout board – developed for this task to enable connection of 4 Digital integrator RJ45 interfaces to the Lattice ECP5 EVN board I/O headers. 
+
+Lattice EC5 EVN board specific clocking primitives instantiation to clock the data streams decoding logic at the correct frequency. 
+
+Digital integrators received data stream 4x oversampling logic and modified streamed packets decoding module (original made for Xilinx platform received from F4E) 
+
+Digital integrator data to HotRIO packeting module 
+
+HotRIO to UDP packets conversion module 
+
+ECP5 master top module 
+
+ECP5 slave top module 
+
+UDP packets capture Python script (to be run on PC) 
+\subsubsection{Foo}
+iThe task was to implement a FPGA design for the Trenz TEB0911 carrier board that can generate RTDN test packets synchronously across multiple Ethernet channels. The target platform supports several FMC connectors, each of which can host multi-lane SFP hardware (TEF008), so the design was structured to scale by FMC site. To support that, we built a parameterized configuration flow based on a Jinja2 template that generates the project YAML description, memory map entries, enabled constraints, and the list of FMC subsystems to instantiate. 
+
+The hardware itself is assembled through reusable TCL scripts. The top-level block design creates the base Zynq MPSoC system, then instantiates a packet-generation hierarchy and a set of FMC Ethernet hierarchies. For every enabled lane, the design creates an Ethernet path with MAC and UDP logic and connects it to a matching RTDI/RTDN packet source.  
+
+ An important project-specific change is the addition of external timing support. In this revision, the FMC-E connector is used not for Ethernet but for a custom FMC card that supplies pulse-per-second and start/stop trigger signals. These inputs drive a dedicated timestamp generator, and the local RTDI packetizer was modified so that the externally synchronized timestamp can be inserted directly into each generated packet. This allows the transmitted RTDN packets to carry timing information aligned to the PPS reference.  
+
+The task was brought to the stage where we started testing the design on the board. Since there were substantial delays in shipment of needed hardware, the testing could only start couple of days before project deadline when the task had to be stopped. As for now, the ethernet core does not work and more tests are needed. The testing process and proposed next steps are documented on Git.  
+\subsubsection{Board Porting}
+
+FMC intergration 
+The aim of the task was to get the FMC 3117 running and to measure input signal with ADCs located on the FMC board. The work included update and clean-up of provided FPGA design, C++ and Python drivers development and proof-of-concept Python applications. The task was not fully completed due to circumstances out of Cosylab’s control (faulty hardware at UKAEA).
+
+The work that was successfully completed is:
+
+Updated and cleaned-up FPGA design
+
+C++ and Python drivers
+
+Various Python applications for dynamic sampling clock setup, ADC control and diagnostics.
+
+Successful readout of input signal on ADC0.
+
+The work still to be done:
+
+Successful readout of input signal on all ADCs, not just on ADC0.
+
+ADC offset compensation DAC testing
+
+DAC test and verification (not part of the task but drivers were also written for this one)
+
+Testing the FMC operation with various SPI speeds and sampling clock frequencies.
+
+
+asdasdkjalsdkjasd
+
+
+
+\subsubsection{Foo}
+The aim of the task was to go as far as possible into interfacing with the FMC LXD31K4 from Logic-X. The received work in progress project could not work and presented too much interfaces inconsistencies with datasheets to proceed as-is. The previous master branch was archived and design started from scratch.
+
+Achievements:
+
+ADC and SPI interface cores adapted to Koheron and registers exposed
+
+Drivers made to access the registers over AXI and tested
+
+Design builds and pass timings (issue fixed from the reference design)
+
+Utility scripts made for SPI initialization sequences
+
+Documentation in project repository
+
+What still needs to be done:
+
+The FMC requires I2C access from the carrier to set-up the power. By default, the FMC is powered off
+
+Once the I2C access is made the next step is to initialize the FMC with SPI and then observe the ADC data on ILA
+
+\subsection{Workstream 4}
+
+\subsubsection{Fusionics Strategy}
+
+The task addressed the identification and analysis of key elements for understanding the fusion market and customer needs, and the development of strategic ideas for promoting Fusionics toward wider industry adoption. This included market analysis, customer segmentation, value proposition development, analysis of the patent landscape for freedom-to-operate assessment, and identification of relevant public funding opportunities.
+
+The result is a strategy document covering market landscape analysis, customer segmentation with qualification criteria, value propositions for different stakeholder types, standardization pathway considerations, product portfolio options, intellectual property landscape assessment, and an overview of applicable grant programs. The document provides a reference for strategic decision-making regarding Fusionics positioning and market engagement.
+
+
+\subsubsection{Fusionics Description and Roadmap}
+
+The task addressed the preparation of a technical description of Fusionics that provides a practical and tangible understanding of what a fusion control platform is, how it is structured, and what it consists of. This document serves as input to the standardization effort and as a technical reference for potential adopters.
+
+The result is a technical datasheet documenting the architecture from device level to supervisory control, specifications of core components including MARTe2, RTDN, NIMBUS, and EPICS, interface definitions between system elements, deployment model options, compliance considerations, and use case descriptions. The document provides a concrete technical foundation that can inform both product development and standard definition
+
+\subsubsection{Pitch Decks}
+
+\subsubsection{Outreach }
+This summary outlines key activities and progress toward stakeholder engagement, community development, and communication assets for the initiative.
+
+Approximately 90 direct stakeholder conversations as of June 2026, across conferences, covering fusion companies, investors, research institutions, and technology providers.
+
+Fusionics Foundation launched publicly with a standalone domain (fusionics-foundation.com), a manifesto, and a Shark Tank pitch.
+
+Community survey: 20 responses collected at ISFNT-16, IAEA Technical Meeting, and through institutional networks in late 2025 and early 2026. Key finding: 85–95% agreement on the standardisation problem; only 40% on modular architecture preference.
+
+Dissemination followed through seven completed activities: SOFE 2025, ISFNT-16, IAEA Technical Meeting, F2F Workshop, FXI, OSSFE 2026, and the Slovenian Embassy round table. More are planned in the Expand stage of Outreach, including DIN engagement, and Oxford governance panel.
+
+
+
+\subsection{Workstream 5}
+
+Fusion plant control system architecture coivering
+
+The task addressed the preparation of a comprehensive control system architecture for nuclear magnetic confinement fusion plants. The goal was to define a technology-agnostic, facility-independent framework structured around five key architectural aspects — Sensor/Diagnostics, Actuators, Controllers, Safety & Protection, and Integration & Infrastructure — and apply this framework across the main plasma control functions, including current, position, shape, density, impurity, profile, fusion power, and divertor control.
+
+The result is a detailed and practically applicable architectural reference that goes beyond a generic system description. It also extends the architecture to include integrated plasma modelling and state estimation services as part of the overall system design. The document provides standardization guidance, formalized interfaces and requirements, identifies key decision points for moving from generic architecture to facility-specific design, and outlines a concrete integration concept for advanced modelling capabilities such as QLKNN, TORAX, and EFITNN within real-time control environments. In this way, the deliverable supports modular development, interoperability, progressive standardization, and facility-specific design decisions for future fusion power plant control systems.
+
+
+% Possible Diagram from This Work.
+
+\section{Discussion}
+
+Fusion devices are complex systems of systems. One of the main challenges
+in creating scalable and maintainable solutions is managing integration.
+Emerging engineering methodologies to achieve such solutions 
+include Model Based Systems Engineering (MBSE) and 
+Component Based Software Engineering (CBSE).
+
+Workstream one showed that it is necessary but not sufficient to have composable solutions
+
+- Tools for orchestration of composed solutions (CMS)
+- Methodologies to replace subsystems as hardware/software evolves (HIL)
+- Case studies of current market solutions (LV, Simulink)
+
+\subsection{1}
+
+Architectural progress has been made at the domain level (MBSE) 
+and at the practical configuration management level (PoC)
+
+At the configuration management level, 
+\subsection{2}
+
+Two public fusion organisations, UKAEA and F4E, have independently identified 
+a requirement to create open hardware solutions, NIMBUS and HotRIO.
+
+
+\subsection{3}
+
+\subsubsection{Outreach}
+
+Options to have  table 1,2,3
+
+\subsubsection{Architecture}
+
+\section{Conclusion}
+
+\section{Abbreviations}
+
+\nomenclature{ATM}{Asynchronous Transmission Mode}
+\nomenclature{DSL}{Domain Specific Language}
+\nomenclature{MARTe}{Multi-threaded Application for Real-Time execution}
+%\nomenclature{MARTe2}{Enhanced version of MARTe developed by F4E for ITER.}
+%\nomenclature{Real-Time Thread}{The unit of concurrency in a MARTe2 application.}
+%\nomenclature{DataSource}{A service which abstracts device drivers to handle application I/O in a MARTe2 application.}
+%\nomenclature{Function}{The unit of compute in a MARTe2 application.  Each Real-Time Thread calls one or more Functions.}
+\nomenclature{JET}{Joint European Tokamak}
+\nomenclature{MBSE}{Model Based System Engineering}
+\nomenclature{PCS}{Plasma Control System}
+\nomenclature{RTCC}{Real-Time Central Controller}
+\nomenclature{SDN}{Synchronous Databus Network}
+\nomenclature{UDP}{User Datagram Protocol}
+
+\printnomenclature
+
+\section{Acknowledgements}
+
+\bibliographystyle{elsarticle-num}
+\bibliography{IAEA15-FCD}{}
+
+\end{document}
+
+\endinput
