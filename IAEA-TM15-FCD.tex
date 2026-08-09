@@ -162,6 +162,11 @@ The funding programme placed strong emphasis on industrial engagement and commer
 
 % RENAME Materials and Methods, but that is the spirit
 \section{Introduction}
+The field of industrial automation informs the expectations for fusion control systems.
+Fusion power plants will be large, distributed, complex systems of systems.
+Solutions must be modular and composable to enable short term procurement
+and long term maintainability.  
+
 
 Fusion control ecosystem comprises platforms, tools, initiatives
 Current generation experiment, next generation demonstrator, FOAK power point, fleat power plant.
@@ -177,7 +182,6 @@ Supply chain engagement activities include
 - Cross community promotion of standards, frameworks.
 - Soft promotion via open source sharing.
 - Coordinated promotion through formal funded collaboration (cite PCSSP).
-
 
 
 Traget outcomes must drive
@@ -212,24 +216,13 @@ Within the UK, the Fusion Futures programme put out a call for projects to
 
 A proposal was submitted on the theme of fusionics.  This was successful and received funding.
 A tender process was carried out to select an industrial partner.  Cosylab were the winning
-bidder
+bidder.  Projects were executed across five themes: architecture, software frameworks, firmware frameworks,
+real-time communications, and pathways to commercialisation.
 
-% Careful with the above,
+This paper summarises the progress which was made in building practical components demonstrating
+solutions for software, firmware, and real-time communications. Results from the architecture 
+and commercialisation activities will be reported elsewhere.
 
-The field of industrial automation informs the expectations for fusion control systems.
-Fusion power plants will be large, distributed, complex systems of systems.
-Solutions must be modular and composable to enable short term procurement
-and long term maintainability.  
-
-Workstreams
-
-1) Real-time software frameworks
-2) Real-time firmware frameworks
-3) Qualification and certification for real-time communications
-4) Commercialisation
-5) Architecture
-
-Standards ISO emerge from combination of requirements, design, but also assessing working solutions.
 
 \section{Results}
 
@@ -254,13 +247,13 @@ In data centers, there exist ... ???  Cite talk from the last EDS show 2025, or 
 
 % Difference between qualification and certification.
 
-\subsection{Workstream 1 : Software Frameworks}
+\subsection{Software Frameworks}
 
-CMS
+Based on JET experience, two gaps were identified.  First, the need for a configuration management system.
+Second, the need to support hardware-in-the-loop testing.  In addition, two case studies were carried out
+looking at the use of COTS software frameworks which have been applied successfully in fusion.
 
-HIL 
-
-\subsubsection{Configuration Management System}
+\subsubsection{Configuration Management System (CMS)}
 
 % TODO: Citation
 JET operations were supported by a powerful configuration management system called Level-1.
@@ -298,16 +291,16 @@ to reduce the possibility of errors.
 
 Based on this research, a conceptual design was defined for a Configuration Management System capable of abstracting over different real-time frameworks via a plugin-based architecture. The design addresses the full scope of a fusion facility, encompassing machine systems, devices, and components organised in a logical hierarchy, alongside operators with designated roles, structured approval workflows, and comprehensive audit capabilities.
 
-To validate the key architectural concepts and demonstrate feasibility, a software prototype was developed. The prototype implements the core governance mechanisms including role-based access control, multi-stage validation, configuration inheritance, and integrity checking, and serves as a concrete proof-of-concept for the conceptual design.
+To validate the key architectural concepts and demonstrate feasibility, a software prototype was developed. The prototype implements the core governance mechanisms including role-based access control, multi-stage validation, configuration inheritance, and integrity checking, and serves as a concrete proof-of-concept for the conceptual design.  The overall architecture is shown in \ref{fig:cms}.
 
 \begin{figure}[t]%% placement specifier
 %% Use \includegraphics command to insert graphic files. Place graphics files in 
 %% working directory.
 \centering%% For centre alignment of image.
-\includegraphics{nimbus-floorplan}
+\includegraphics{CMS.png}
 %% Use \caption command for figure caption and label.
 % Ref slide 29
-\caption{CMS End Point Interactions}\label{fig5}
+	\caption{Configuration Management System (CMS) End Point Interactions}\label{fig:cms}
 %% https://en.wikibooks.org/wiki/LaTeX/Importing_Graphics#Importing_external_graphics
 \end{figure}
 
@@ -338,7 +331,7 @@ This allows teams to understand the intent behind a test, the
 justification for the cost that implementing the test incurs,
 and to interpret the significance of test results.
 
-The task consisted of defining and structuring the system-level foundation for a Hardware-in-the-Loop (HIL) testing framework that would cover fusion related use cases. This included formalizing the problem statement, identifying system boundaries and external interfaces, eliciting and structuring functional and non-functional requirements, analysing operational use cases, and consolidating the research findings into a coherent architectural baseline. In addition, a demonstration case was implemented using real hardware as a proof of concept to validate key assumptions and confirm feasibility of the proposed approach.
+The task consisted of defining and structuring the system-level foundation for a Hardware-in-the-Loop (HIL) testing framework that would cover fusion related use cases. This included formalizing the problem statement, identifying system boundaries and external interfaces, eliciting and structuring functional and non-functional requirements, analysing operational use cases, and consolidating the research findings into a coherent architectural baseline. In addition, a demonstration case was implemented using real hardware as a proof of concept to validate key assumptions and confirm feasibility of the proposed approach. The architecture is shown in \ref{fig:hilarch}.
 A key capability developed was the integration of EPICS Channel Access as a common communication layer across heterogeneous environments. The work demonstrated how LabVIEW, Python, and RTF-based function blocks can all interoperate through standardised process variables, enabling language- and platform-agnostic access to hardware signals. This approach proved robust both for interactive demonstration and for automated regression testing, and provides a reusable integration pattern applicable to other UKAEA and fusion-community hardware.
 
 On the software engineering side, the project resulted in a bespoke test automation framework built on pytest, FastAPI, and SQLite, featuring real-time WebSocket output streaming, structured test steps with entry/dwell/exit phases, a configurable alarm evaluator, and a stimulus generation library. Complementing these, a web-based GUI was developed to give operators a single interface for test discovery, execution, live monitoring, historical comparison, and self-contained HTML report generation. The combination of these components reflects a mature understanding of how operator-facing tooling and automated CI pipelines can share the same underlying test infrastructure.
@@ -348,28 +341,30 @@ On the software engineering side, the project resulted in a bespoke test automat
 %% working directory.
 \centering%% For centre alignment of image.
 % Page 17 
-\includegraphics{HIL-Arch}
+\includegraphics{HIL1.png}
+%\includegraphics{HIL2.png}
 %% Use \caption command for figure caption and label.
-% Ref slide 12
-\caption{Nimbus floorplan}\label{fig2}
+\caption{Overall architecture for the HIL testing framework.}\label{fig:hilarch}
+%\caption{HIL components and interactions.}\label{fig:hilcomp}
 %% https://en.wikibooks.org/wiki/LaTeX/Importing_Graphics#Importing_external_graphics
 \end{figure}
 
 
-
 Deliverables:
 
-A baseline architectural document serving as the primary reference for the HIL framework, containing:
+\begin{enumerate}
+	\item{A baseline architectural document serving as the primary reference for the HIL framework, containing:}
 
-Structured fusion-related use cases (nominal and fault scenarios)
+	\item{Structured fusion-related use cases (nominal and fault scenarios)}
 
-System-level functional and non-functional requirements
+	\item{System-level functional and non-functional requirements}
 
-High-level system design and architectural rationale
+	\item{High-level system design and architectural rationale}
 
-Identified assumptions, constraints, and risks
+	\item{Identified assumptions, constraints, and risks}
 
-A detailed description of the implemented hardware proof-of-concept demonstration, including setup, execution, and observed results.
+	\item{A detailed description of the implemented hardware proof-of-concept demonstration, including setup, execution, and observed results.}
+\end{enumerate}
 
 The engineering activity to build a test rig for a given real-time application is
 generally similar for a wide class of systems.  
@@ -428,33 +423,7 @@ and to have field replaceable units with a minimum blast radius on component cha
 Tool supported component oriented design is necessary but not sufficient to tame complexity.
 
 
-\subsection{Workstream 2}
-
-The MAST-U plasma control system currently requires analogue signal interfaces from diagnostic systems.
-This has a number of constraints, particularly for diagnostics which natively generate digital outputs, and
-which therefore have to introduce a DAC/ADC bridge to achieve integration.
-
-During the 2026 maintenance period, MAST-U will replace 384 channels of analogue magnetics diagnostics with
-real-time digital integrator (RTDI) upgrades.  The resulting
-
-% cite
-TODO: motivate DPDK [ cite ]
-
-\subsubsection{Component UDP Receiver}
-This task extended the existing DPDK multi-queue UDP receiver (dpdk_mp_udp) to gate packet acquisition on an external hardware trigger, aligning latency measurements with the true start of a data acquisition window. A dedicated trigger thread listens for an External Timestamp (EXTTS) event on a configurable PTP device and, on a valid trigger, publishes the hardware timestamp T0 to worker cores via atomic flags. Worker cores spin on the trigger flag before starting packet reception and use T0 as the absolute time reference for converting FPGA tick counter values into latency measurements.
-
-\subsubsection{Component UDP Sender}
-This task implemented a DPDK-based UDP sender to complement the existing receiver programs, enabling loopback latency measurement. The architecture follows a primary/secondary DPDK multi-process model: a primary TX server process owns the NIC and manages hardware TX queues, while one or more secondary producer processes independently enqueue packets into shared rte_ring software queues. This allows multiple producers to target different TX queues concurrently without owning the NIC directly. 
-
-The TX server reads a YAML configuration file to set up one software ring and one hardware TX queue per logical channel and launches one worker core per queue to drain the rings and transmit packets. Rings are created as multi-producer/single-consumer by default to support multiple concurrent producers. Each producer runs as a DPDK secondary process, enqueuing RTDN-formatted UDP packets at a configurable rate with an embedded TX timestamp, enabling the receiver to compute end-to-end loopback latency. 
-
-\subsubsection{Component Port Monitoring}
-% task
-This task developed a command-line tool for monitoring the port-level health of managed network switches over SNMPv2c. The goal was to provide real-time visibility into switch port behaviour — link status, error rates, and packet discard rates — for the RTDN programme's network infrastructure. The tool polls a target device at a configurable interval, computes per-second counter deltas between polls, and reports on ports exhibiting abnormal behaviour. Interface discovery and management port identification are performed automatically at startup. Output is written to a rotating log file and optionally streamed to the console. 
-
-The tool distinguishes between errors (malformed frames) and discards (valid packets dropped due to congestion or policy), a distinction documented in the README to aid operator interpretation. 
-
-\subsection{FPGA Based Solutions}
+subsection{Firmware Frameworks}
 
 
 \subsubsection{NIMBUS Platform}
@@ -476,15 +445,16 @@ that convert raw sensor data into physics and engineering information.
 The firmware design is based on top of an existing open framework, Koheron \cite{Koheron}.
 Koheron abstracts a common pattern in FPGA designs which is the need to provide 
 software drivers that enable control of the firmware.
+See \ref{fig:nimbus-floorplan}.
 
 \begin{figure}[t]%% placement specifier
 %% Use \includegraphics command to insert graphic files. Place graphics files in 
 %% working directory.
 \centering%% For centre alignment of image.
-\includegraphics{nimbus-floorplan}
+\includegraphics{NimbusFloorplan}
 %% Use \caption command for figure caption and label.
 % Ref slide 12
-\caption{Nimbus floorplan}\label{fig3}
+\caption{Nimbus floorplan}\label{fig:nimbus-floorplan}
 %% https://en.wikibooks.org/wiki/LaTeX/Importing_Graphics#Importing_external_graphics
 \end{figure}
 
@@ -689,6 +659,20 @@ The hardware itself is assembled through reusable TCL scripts. The top-level blo
 
 The task was brought to the stage where we started testing the design on the board. Since there were substantial delays in shipment of needed hardware, the testing could only start couple of days before project deadline when the task had to be stopped. As for now, the ethernet core does not work and more tests are needed. The testing process and proposed next steps are documented on Git.  
 
+See \ref{fig:nimbus-ecosystem}.
+
+\begin{figure}[t]%% placement specifier
+%% Use \includegraphics command to insert graphic files. Place graphics files in 
+%% working directory.
+\centering%% For centre alignment of image.
+	\includegraphics{NimbusEcosystem}
+%% Use \caption command for figure caption and label.
+% Ref slide 12
+\caption{Nimbus floorplan}\label{fig:nimbus-ecosystem}
+%% https://en.wikibooks.org/wiki/LaTeX/Importing_Graphics#Importing_external_graphics
+\end{figure}
+
+
 % Consider dropping this
 \subsubsection{Deep Learning}
 
@@ -742,44 +726,69 @@ D-TACQ integration modules + UDP packetizer + ADC input multiplexer + Data emula
 
 Documentation in Markdown in the repository
 
-ubsection{Workstream 4}
+\subsection{Real-Time Communications}
 
-\subsubsection{Fusionics Strategy}
+The MAST-U plasma control system currently requires analogue signal interfaces from diagnostic systems.
+This has a number of constraints, particularly for diagnostics which natively generate digital outputs, and
+which therefore have to introduce a DAC/ADC bridge to achieve integration.
 
-The task addressed the identification and analysis of key elements for understanding the fusion market and customer needs, and the development of strategic ideas for promoting Fusionics toward wider industry adoption. This included market analysis, customer segmentation, value proposition development, analysis of the patent landscape for freedom-to-operate assessment, and identification of relevant public funding opportunities.
+During the 2026 maintenance period, MAST-U will replace 384 channels of analogue magnetics diagnostics with
+real-time digital integrator (RTDI) upgrades.  The resulting
 
-The result is a strategy document covering market landscape analysis, customer segmentation with qualification criteria, value propositions for different stakeholder types, standardization pathway considerations, product portfolio options, intellectual property landscape assessment, and an overview of applicable grant programs. The document provides a reference for strategic decision-making regarding Fusionics positioning and market engagement.
+% cite
+TODO: motivate DPDK [ cite ]
 
+\subsubsection{Component UDP Receiver}
+This task extended the existing DPDK multi-queue UDP receiver (dpdk_mp_udp) to gate packet acquisition on an external hardware trigger, aligning latency measurements with the true start of a data acquisition window. A dedicated trigger thread listens for an External Timestamp (EXTTS) event on a configurable PTP device and, on a valid trigger, publishes the hardware timestamp T0 to worker cores via atomic flags. Worker cores spin on the trigger flag before starting packet reception and use T0 as the absolute time reference for converting FPGA tick counter values into latency measurements.
 
-\subsubsection{Fusionics Description and Roadmap}
+\subsubsection{Component UDP Sender}
+This task implemented a DPDK-based UDP sender to complement the existing receiver programs, enabling loopback latency measurement. The architecture follows a primary/secondary DPDK multi-process model: a primary TX server process owns the NIC and manages hardware TX queues, while one or more secondary producer processes independently enqueue packets into shared rte_ring software queues. This allows multiple producers to target different TX queues concurrently without owning the NIC directly. 
 
-The task addressed the preparation of a technical description of Fusionics that provides a practical and tangible understanding of what a fusion control platform is, how it is structured, and what it consists of. This document serves as input to the standardization effort and as a technical reference for potential adopters.
+The TX server reads a YAML configuration file to set up one software ring and one hardware TX queue per logical channel and launches one worker core per queue to drain the rings and transmit packets. Rings are created as multi-producer/single-consumer by default to support multiple concurrent producers. Each producer runs as a DPDK secondary process, enqueuing RTDN-formatted UDP packets at a configurable rate with an embedded TX timestamp, enabling the receiver to compute end-to-end loopback latency. 
 
-The result is a technical datasheet documenting the architecture from device level to supervisory control, specifications of core components including MARTe2, RTDN, NIMBUS, and EPICS, interface definitions between system elements, deployment model options, compliance considerations, and use case descriptions. The document provides a concrete technical foundation that can inform both product development and standard definition
+\subsubsection{Component Port Monitoring}
+% task
+This task developed a command-line tool for monitoring the port-level health of managed network switches over SNMPv2c. The goal was to provide real-time visibility into switch port behaviour — link status, error rates, and packet discard rates — for the RTDN programme's network infrastructure. The tool polls a target device at a configurable interval, computes per-second counter deltas between polls, and reports on ports exhibiting abnormal behaviour. Interface discovery and management port identification are performed automatically at startup. Output is written to a rotating log file and optionally streamed to the console. 
 
-\subsubsection{Pitch Decks}
-
-\subsubsection{Outreach }
-This summary outlines key activities and progress toward stakeholder engagement, community development, and communication assets for the initiative.
-
-Approximately 90 direct stakeholder conversations as of June 2026, across conferences, covering fusion companies, investors, research institutions, and technology providers.
-
-Fusionics Foundation launched publicly with a standalone domain (fusionics-foundation.com), a manifesto, and a Shark Tank pitch.
-
-Community survey: 20 responses collected at ISFNT-16, IAEA Technical Meeting, and through institutional networks in late 2025 and early 2026. Key finding: 85–95% agreement on the standardisation problem; only 40% on modular architecture preference.
-
-Dissemination followed through seven completed activities: SOFE 2025, ISFNT-16, IAEA Technical Meeting, F2F Workshop, FXI, OSSFE 2026, and the Slovenian Embassy round table. More are planned in the Expand stage of Outreach, including DIN engagement, and Oxford governance panel.
+The tool distinguishes between errors (malformed frames) and discards (valid packets dropped due to congestion or policy), a distinction documented in the README to aid operator interpretation. 
 
 
+% Early draft allowed for Workstream 4 - 5: leave these to another publication.
+%\subsection{Fusionics Strategy}
+%
+%The task addressed the identification and analysis of key elements for understanding the fusion market and customer needs, and the development of strategic ideas for promoting Fusionics toward wider industry adoption. This included market analysis, customer segmentation, value proposition development, analysis of the patent landscape for freedom-to-operate assessment, and identification of relevant public funding opportunities.
+%
+%The result is a strategy document covering market landscape analysis, customer segmentation with qualification criteria, value propositions for different stakeholder types, standardization pathway considerations, product portfolio options, intellectual property landscape assessment, and an overview of applicable grant programs. The document provides a reference for strategic decision-making regarding Fusionics positioning and market engagement.
+%
+%
+%\ubsection{Fusionics Description and Roadmap}
+%
+%The task addressed the preparation of a technical description of Fusionics that provides a practical and tangible understanding of what a fusion control platform is, how it is structured, and what it consists of. This document serves as input to the standardization effort and as a technical reference for potential adopters.
+%
+%The result is a technical datasheet documenting the architecture from device level to supervisory control, specifications of core components including MARTe2, RTDN, NIMBUS, and EPICS, interface definitions between system elements, deployment model options, compliance considerations, and use case descriptions. The document provides a concrete technical foundation that can inform both product development and standard definition
+%
+%
+%\subsubsection{Outreach }
+%This summary outlines key activities and progress toward stakeholder engagement, community development, and communication assets for the initiative.
+%
+%Approximately 90 direct stakeholder conversations as of June 2026, across conferences, covering fusion companies, investors, research institutions, and technology providers.
+%
+%Fusionics Foundation launched publicly with a standalone domain (fusionics-foundation.com), a manifesto, and a Shark Tank pitch.
+%
+%Community survey: 20 responses collected at ISFNT-16, IAEA Technical Meeting, and through institutional networks in late 2025 and early 2026. Key finding: 85–95% agreement on the standardisation problem; only 40% on modular architecture preference.
+%
+%Dissemination followed through seven completed activities: SOFE 2025, ISFNT-16, IAEA Technical Meeting, F2F Workshop, FXI, OSSFE 2026, and the Slovenian Embassy round table. More are planned in the Expand stage of Outreach, including DIN engagement, and Oxford governance panel.
 
-\subsection{Workstream 5}
 
-Fusion plant control system architecture coivering
+
+\subsection{Fusion Plant Control System Architecture} 
+
+An in-depth study of fusion plant control system architecture was also carried out.  
+This work will be communicated and published at a later date. 
 
 The task addressed the preparation of a comprehensive control system architecture for nuclear magnetic confinement fusion plants. The goal was to define a technology-agnostic, facility-independent framework structured around five key architectural aspects — Sensor/Diagnostics, Actuators, Controllers, Safety & Protection, and Integration & Infrastructure — and apply this framework across the main plasma control functions, including current, position, shape, density, impurity, profile, fusion power, and divertor control.
 
 The result is a detailed and practically applicable architectural reference that goes beyond a generic system description. It also extends the architecture to include integrated plasma modelling and state estimation services as part of the overall system design. The document provides standardization guidance, formalized interfaces and requirements, identifies key decision points for moving from generic architecture to facility-specific design, and outlines a concrete integration concept for advanced modelling capabilities such as QLKNN, TORAX, and EFITNN within real-time control environments. In this way, the deliverable supports modular development, interoperability, progressive standardization, and facility-specific design decisions for future fusion power plant control systems.
-
 
 % Possible Diagram from This Work.
 
@@ -791,20 +800,11 @@ Emerging engineering methodologies to achieve such solutions
 include Model Based Systems Engineering (MBSE) and 
 Component Based Software Engineering (CBSE).
 
-Workstream one showed that it is necessary but not sufficient to have composable solutions
+Software framework development showed that it is necessary but not sufficient to have composable solutions
 
 - Tools for orchestration of composed solutions (CMS)
 - Methodologies to replace subsystems as hardware/software evolves (HIL)
 - Case studies of current market solutions (LV, Simulink)
-
-\subsection{1}
-
-Architectural progress has been made at the domain level (MBSE) 
-and at the practical configuration management level (PoC)
-
-At the configuration management level, 
-
-\subsection{2}
 
 Composable frameworks with maintainable qualities and lifecycle are important.
 
@@ -830,28 +830,36 @@ support can vary.
 Fusionics principle that there should exist reference implementations
 addresses this strategic risk.
 
-
 Two public fusion organisations, UKAEA and F4E, have independently identified 
 a requirement to create open hardware solutions, NIMBUS and HotRIO.
 HotRIO targets highly deterministic data exchange up to low MHz range.
 Nimbus targets highly complex applications starting from low MHz and
 up to GHz.  
 
+\section{Conclusions}
 
+Real-time fusion control systems are complex.  They critically underpin both
+performance, and machine protection functions.  Yet they must also be 
+flexible and adaptable, to cope with high rates of change in both
+domain knowledge, and implementation technologies.  
+The pace of growth in public and private fusion research and development
+risks outstripping the supply of professionals with the knowledge and experience
+to deliver these solutions for future machines.
 
-\subsection{3}
+Fusionics is posited as an emerging discipline which brings electronics, computer science,
+and control theory expertise along with plasma domain knowledge to create
+the basis robust industrial fusion control systems.
+A two year industry stimulus programme has been conducted to move this concept forward.
 
-\subsubsection{Outreach}
-
-Options to have  table 1,2,3
-
-\subsubsection{Architecture}
-
-\section{Conclusion}
-
-The authors welcome engagement from other researchers and fusion industry companies.
-
-Next steps will include creating
+The results from this programme include practical deployable solutions supporting MAST-U.
+They also include designs and prototypes spanning integrated challengees from facility 
+level configuration management to hardware in the loop testing.
+Stakeholder engagement activities with fusionics customers, partners, and suppliers
+have started conversations looking to scale the concept, with generally positive
+responses.  Next steps are to convert informal consensus into a formal,
+actionable body which can drive future supply chain evolution.  Organisations
+and individuals who would like to contribute to this effort are encouraged to 
+contact the authors.
 
 \section{Abbreviations}
 
