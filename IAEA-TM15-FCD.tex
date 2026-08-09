@@ -167,10 +167,18 @@ Fusion control ecosystem comprises platforms, tools, initiatives
 Current generation experiment, next generation demonstrator, FOAK power point, fleat power plant.
 STEP : build industrial grade supply chain as well as controls.
 
+The UKAEA STEP programme sets out two key aims.  STEP will build on fusion science and engineering 
+to delever a working integrated prototype energy plant. In delivering a new prototype plant, 
+STEP iwll develop a new fusion supply chain.
+
+% TODO Citations get the Royal Soc edition
+
 Supply chain engagement activities include
 - Cross community promotion of standards, frameworks.
 - Soft promotion via open source sharing.
 - Coordinated promotion through formal funded collaboration (cite PCSSP).
+
+
 
 Traget outcomes must drive
 - Standardisation on terminology, methodology, approach to qualification and certifications.
@@ -188,12 +196,13 @@ electronics, computer science, and control theory skills.
 The word 'fusionics' has been coined to encompass these ideas.
 It is intended to stimulate activity leading to solutions in this space.
 
-
 Intent.  To illustrate Fusionics practically we need
 
 - Open Architecture and eventually consistent Ontology
 - Reference Implementations to make abstract descriptions real, and actionable
 - Integrated Demonsrtations
+
+% COHERENCE : in practice, we preselected the reference implementation and rev eng the archicture
 
 \section{Methodology}
 
@@ -220,19 +229,36 @@ Workstreams
 4) Commercialisation
 5) Architecture
 
-
 Standards ISO emerge from combination of requirements, design, but also assessing working solutions.
 
 \section{Results}
 
-\subsection{Workstream 1 : Software Frameworks}
+Assertion (slide 8) : community approach to date has lacked coordination and standardisation.
+This project could be criticised as having had the same nature, OR we could reframe it as :
+
+Bringing standard testing (cocotb) to FPGA, bringing HotRIO together with Nimbus, 
+extending the range of COTS boards that can work with Nimbus.
 
 MIL, HIL, PIL, SIL background motivation.
+
+High level design.  Detailed level design.  Software frameworks bridge MBSE to integrated supervisory control
+(Plant System Host in ITER, JET subsystem).  Software tools include the deployment code, and the integration codes/tools.
+Firmware frameworks bridge software/cpu to hardware/PL and electronics.
+Real-time communications enable composition of distributed (possibly heterogeneous) systems.
+
+Performance and reliability requirements can only be addressed in deployment.  At this level, the internal
+behaviours of vendor components and project solutions interact and must be qualified.
+THis needs standardised testing methods, and approaches that factor out technology.
+
+In data centers, there exist ... ???  Cite talk from the last EDS show 2025, or possibly from the NI Athens meeting.
+
+% Difference between qualification and certification.
+
+\subsection{Workstream 1 : Software Frameworks}
 
 CMS
 
 HIL 
-
 
 \subsubsection{Configuration Management System}
 
@@ -247,10 +273,48 @@ Looking to the future needs of fusion power plants, a research and development p
 proposed an architecture and proof-of-concept implementation for an equivalent tool.
 
 The work started by researching real-time control frameworks used in fusion and adjacent domains, examining how each framework handles configuration internally and what gaps exist when managing configurations at the facility level across multiple frameworks simultaneously.
+Use cases were analysed and identified three design drivers: accountability, longevity, and adaptability.
+
+The scope covered is full support of operations.  This includes scenario development, simulation, deployment and execution during 
+operational sessions.  The recommendation from JET experience is to build one software suite that is used from early preparation (offline)
+ and also deployed in the control room. Regarding accountability, the main 
+use cases collected covered policy (enforcing workflows), operator roles and permissions, and provenance.
+Supporting features include analytics with powerful semantic search to identify previously successful
+configuration/outcome evidence, multi-stage validation pipelines, and strong integrity control to 
+prevent tampering.  The accountability layer represents authority, operating instructions, and audit capability.
+
+Adaptability use cases covered the need to abstract custom views over the configuration data space
+targeting specific roles.  A domain specific language was proposed to decouple function from implementation.
+The envisaged system scales from small subsystems to entire facilities.  Support to isolate subsystems, or to 
+aggregate, as required is built into the specification.  In terms of implementation, a modular, composable structure
+with plugins for visual elements is foreseen.
+
+Recognising the JET experience, in which the configuration system became a de facto knowledge management solution,
+design for longevity is an important enabler of return on investment.  Ensuring that the data and metadata are
+reusable and curated sources of actionable information, organised as shared catalogues is critical.  A technology
+agnostic implementation which can straddle fast moving user interface software layers is also critical.
+This is important to preserve operator familiarity wiht interfacse (in human factors terms) but also
+to reduce the possibility of errors.
 
 Based on this research, a conceptual design was defined for a Configuration Management System capable of abstracting over different real-time frameworks via a plugin-based architecture. The design addresses the full scope of a fusion facility, encompassing machine systems, devices, and components organised in a logical hierarchy, alongside operators with designated roles, structured approval workflows, and comprehensive audit capabilities.
 
 To validate the key architectural concepts and demonstrate feasibility, a software prototype was developed. The prototype implements the core governance mechanisms including role-based access control, multi-stage validation, configuration inheritance, and integrity checking, and serves as a concrete proof-of-concept for the conceptual design.
+
+\begin{figure}[t]%% placement specifier
+%% Use \includegraphics command to insert graphic files. Place graphics files in 
+%% working directory.
+\centering%% For centre alignment of image.
+\includegraphics{nimbus-floorplan}
+%% Use \caption command for figure caption and label.
+% Ref slide 29
+\caption{CMS End Point Interactions}\label{fig5}
+%% https://en.wikibooks.org/wiki/LaTeX/Importing_Graphics#Importing_external_graphics
+\end{figure}
+
+
+The programme was truncated early, so the proof of concept requires further work before sharing with the community.
+Next STEP work will use this.
+
 
 \subsubsection{HIL Testing Framework}
 
@@ -279,6 +343,20 @@ A key capability developed was the integration of EPICS Channel Access as a comm
 
 On the software engineering side, the project resulted in a bespoke test automation framework built on pytest, FastAPI, and SQLite, featuring real-time WebSocket output streaming, structured test steps with entry/dwell/exit phases, a configurable alarm evaluator, and a stimulus generation library. Complementing these, a web-based GUI was developed to give operators a single interface for test discovery, execution, live monitoring, historical comparison, and self-contained HTML report generation. The combination of these components reflects a mature understanding of how operator-facing tooling and automated CI pipelines can share the same underlying test infrastructure.
 
+\begin{figure}[t]%% placement specifier
+%% Use \includegraphics command to insert graphic files. Place graphics files in 
+%% working directory.
+\centering%% For centre alignment of image.
+% Page 17 
+\includegraphics{HIL-Arch}
+%% Use \caption command for figure caption and label.
+% Ref slide 12
+\caption{Nimbus floorplan}\label{fig2}
+%% https://en.wikibooks.org/wiki/LaTeX/Importing_Graphics#Importing_external_graphics
+\end{figure}
+
+
+
 Deliverables:
 
 A baseline architectural document serving as the primary reference for the HIL framework, containing:
@@ -296,9 +374,11 @@ A detailed description of the implemented hardware proof-of-concept demonstratio
 The engineering activity to build a test rig for a given real-time application is
 generally similar for a wide class of systems.  
 
-
 % Potential figure from 
 % https://ukaeauk.sharepoint.com/:b:/r/sites/FF-CD-FCD-P21-10041-Ext/Shared%20Documents/P%20172%20-%20Final%20deliverables/WS1/Task%202%20-%20Hardware%20in%20the%20Loop%20Testing/HIL_Presentation_ARCH.pdf?d=w816f1f42d91e46c488486110c7127714&csf=1&web=1&e=FuhrAC
+
+The programme was truncated early, so further work is required to demonstrate and share this.  This will be carried out in 2026/27 with 
+the Nimbus solution which is now supporting several MAST-U diagnostics.
 
 \subsubsection{Case Study : LabVIEW Device Framework Architecture}
 
@@ -315,6 +395,11 @@ long term experience of managing such systems.
 
 This contributed to explaining the requirement for meta tooling such as the CMS
 and HIL agnostic solutions.
+
+The results of this case study will feed into STEP Tranche 2a development of 
+a fusion control system simulator.  This recognises the need for integrated
+control to bring an architectural solution which can be mapped into 
+specific technologies while leaving a maintenance path.
 
 \subsubsection{Case Study : Simulink Generated Code}
 
@@ -334,7 +419,14 @@ We learned that achieving cross-framework portability is not a purely technical 
 
  The work also reinforced the importance of separating algorithmic design from framework-specific integration concerns and demonstrated that this separation is achievable in practice through disciplined application of Simulink modelling rules and the Embedded Coder C API.
 
-The conceptual framework and design rules established during this task provide a solid and reusable foundation for future projects involving multi-framework control system development.
+The conceptual framework and design rules established during this task provide a solid and reusable foundation for future projects involving multi-framework control system development.  
+
+The approach of using high level design tools which target components that can be deployed in reusable frameworks is attractive.
+The detail of achieving effective decomposition that really enables good system engineering choices to be made
+and to have field replaceable units with a minimum blast radius on component change is still a relevant challenge.
+
+Tool supported component oriented design is necessary but not sufficient to tame complexity.
+
 
 \subsection{Workstream 2}
 
@@ -365,8 +457,7 @@ The tool distinguishes between errors (malformed frames) and discards (valid pac
 \subsection{FPGA Based Solutions}
 
 
-\subsubsection{NIMBUS - Deep Learning}
-
+\subsubsection{NIMBUS Platform}
 
 NIMBUS - A family of real-time products.
 
@@ -374,53 +465,122 @@ NIMBUS - A family of real-time products.
 % Material also taken from the Final Report for P172
 
 Initially funded through the UK Government Office of Tech Transfer, UKAEA have been developing 
-a signal processing platform targeting plasma control system requirements. The concept brings
+a platform for real-time diagnostics, data, and control.  
+
+The concept brings
 together COTS modules based around high performance FPGA devices combined with a range of
 digitisers and communications channels. A modular firmware design factors out the recurring
-engineering tasks for data flow and integrated communications, from the real-time algorithms
-that extract physics information from raw sensor data.  
+engineering tasks. This separates data flow and management, from the real-time algorithms
+that convert raw sensor data into physics and engineering information. 
 
-The first application for this platform was to support fast neutron diagnostics.  Combining
-8 channels sampling at 250Msps, the initial proof of concept unit was the "Nimbus 2000".
-Based on the success of this project, the range has been extended to cover different 
-frequency and channel density requirements.  It now covers all of the main needs for the
-MAST-U measurement set.
+The firmware design is based on top of an existing open framework, Koheron \cite{Koheron}.
+Koheron abstracts a common pattern in FPGA designs which is the need to provide 
+software drivers that enable control of the firmware.
 
-One of the key design principles for the NIMBUS platform is to support a broad range
-of data acquisition and real-time processing.  The platform 
-% 3 interfaces : streaming, real-time, supervisory
+\begin{figure}[t]%% placement specifier
+%% Use \includegraphics command to insert graphic files. Place graphics files in 
+%% working directory.
+\centering%% For centre alignment of image.
+\includegraphics{nimbus-floorplan}
+%% Use \caption command for figure caption and label.
+% Ref slide 12
+\caption{Nimbus floorplan}\label{fig3}
+%% https://en.wikibooks.org/wiki/LaTeX/Importing_Graphics#Importing_external_graphics
+\end{figure}
 
 
-The task was about implementing Xilinx DPUCZDX8G v4.1 Deep Learning Processing Unit for AI/ML inference acceleration onto Nimbus board. A pre-existing ML model (ResNet50) for image classification was used for testing. The deliverables are: 
+The first application for this platform was neutron measurement.  Combining
+8 channels sampling at 250Msps, the initial proof of concept unit was named the "Nimbus 2000".
+\footnote{NIMBUS: Neutron Instrumentation Measurement BUSiness}
+To efficiently meet the needs of the MAST-U measurement set, a range of digitisers
+spanning different frequency and channel density requirements were acquired.  
+This range, and the typical applications is 
+table\ref{table:nimbus}.
 
-Koheron project that includes FPGA implementation of DPU core. 
+% TABLE
+\begin{table}[htbp]
+\centering
+\caption{Key specifications and typical applications.}
+\label{tab:key-specifications}
+\begin{tabularx}{\textwidth}{@{} l X @{}}
+\hline
+\textbf{Key Specs} & \textbf{Typical Application} \\
+\hline
 
-Petalinux project which includes DPU specific modifications and Python application that loads the ML model to DPU core and runs inference. UKAEA only uses kernel part of Petalinux and joins it with Ubuntu root file system.  
+8 ch, 14-bit @ 5 GS/s
+& Reflectometer \\
 
-Bash script that installs Vitis AI libraries to Ubuntu which enables running Python application mentioned in the previous point.  
+4 ch, 16-bit @ 1 GS/s
+& Thomson scattering \\
 
-\subsubsection{Iris DMA}
-The goal of this task was to enable DMA engine on the Iris board, implement a DMA bypass controller and to make a user-space C program that can configure the DMA via the DMA bypass controller going through the PCIe bus. The deliverables are:
+4 ch, 16-bit @ 310 MS/s
+& Thomson scattering, Neutron camera, \\
+8 ch, 16-bit @ 310 MS/s
+& fast neutron diagnostics, Interferometer \\
+7 ch, 16-bit @ 250 MS/s
+& \\
 
-C library for controlling Xilinx XDMA with interfaces for DMA channel control, bypass descriptor transfers, and high-level abstractions for controlling ADC emulators and bypass controller.
+16 ch, 14-bit @ 125 MS/s
+& Neutron camera, fission chamber, Fast Magnetics, \\
+& Fast Doppler backscattering, proton detector \\
 
-Utilities for reading/writing registers, configuring DMA transfers, and managing memory-mapped device regions with automatic page-alignment handling.
+20 ch, 16-bit @ 5 MS/s + 2 ch DAC
+& Ultrafast Spectroscopy, Motional Stark Effect, \\
+& Doppler backscattering, Soft X-Ray \\
 
-Documentation and demo script
+24-ch SFP+ supporting 1G/10G ethernet
+& Data aggregator for Real-time Data Mesh/co-processing node \\
+or 16 G aurora interfaces
+& \\
 
-\subsubsection{Ultrafast Divertor Spectroscopy}
+32-ch Digital I/O @ 24 V
+& Industrial-grade digital I/O \\
 
-The initial task was to develop cocotb unit tests and then top-level tests to validate the VHDL implementation of the UFDS tracking algorithm. The task increased into integration into D-TACQ ACQ2106 platform, customer interface with DIFFER and commissioning of the platform on site.
+\hline
+\end{tabularx}
+\end{table}
 
-The project deliverables are all in the same repository and are:
+Developing a new NIMBUS model requires N steps.  Each requires certain engineering skills
+and must be completed taking account of testing, quality, and documentation. 
+The goal is not just to complete the integration for a specific diagnostic project,
+it is to deliver a reproducible, scalable solution.  The sub projects tackled 
+cover the full range of engineering activities.  We record not just the success, 
+but also the practical challenges.
 
-VHDL UFDS top level implementation
+The architecture is carrier board, FMC board(s), application code.
 
-Python reference algorithm class and testbenches (unit and top level)
+At the high level design, signal acquisition and processing requirements are
+determined from the application and algorithm.  These constrain the selection of ADC, FPGA, and
+carrier board. They also define the maximum bandwidth of the system which has
+implications for the data streaming communications channels.
 
-D-TACQ integration modules + UDP packetizer + ADC input multiplexer + Data emulator for debug
+One activity is porting the Koheron framework to a new carrier board.
+This includes mapping the main board features into the Koheron formalism
+and ensuring board initialisation specifics are attended to.  The RFSoC
+project described in \ref{} provides details.
 
-Documentation in Markdown in the repository
+Once a carrier board is supported, integration of FMC boards which 
+provide high speed I/O is required. This is mostly to support ADC channels.
+Vendor support code must be ported to be consistent with the 
+Koheron and Nimbus frameworks. Details are provided for two case
+studies in \ref{}
+
+The design philosophy underpinning Nimbus is to provide a distributed ecosystem
+which can integrate a range of measurement and control functions.
+The support for real-time data exchange is described in \ref{}
+
+\begin{figure}[t]%% placement specifier
+%% Use \includegraphics command to insert graphic files. Place graphics files in 
+%% working directory.
+\centering%% For centre alignment of image.
+\includegraphics{nimbus-ecosystem}
+%% Use \caption command for figure caption and label.
+% Ref slide 13
+\caption{Nimbus ecosystem}\label{fig4}
+%% https://en.wikibooks.org/wiki/LaTeX/Importing_Graphics#Importing_external_graphics
+\end{figure}
+
+
 
 \subsubsection{RFSoC}
 The goal of phase one was to bring-up the reference clocks for the RFSOC ADCs and DACs. PYNQ driver code for RFSOC was already ported to Koheron but the script for reference clocks bring-up had no effect.
@@ -447,39 +607,6 @@ A test script that demonstrates access to the DDR4 memory from the PS side.
 
 Documentation.
 
-\subsubsection{HotRIO Aggregator}
-
-This task was defined in collaboration with Fusion for Energy. The goal was to create a proof-of-concept aggregator device on Lattice ECP5 platform for the Digital integrators (used for magnetic field measurements at ITER). This would mean F4E could use a cheap and lightweight aggregator device to make the magnetic field measurement equipment compact and mobile. The aggregator device would be able to accept data streams from four Digital integrators and send the data over a single HotRIO interface. 
-
-For development and testing, two devices were planned – the first as the aggregator (master ECP5 board) and the second (slave ECP5 board) to receive HotRIO packets and forward them on to a UDP gigabit interface. The UDP packets can then be gathered and verified from any PC. All functionality of the master ECP5 board can be tested and verified in this way. 
-
-Testing on the finished devices was done to confirm the finished prototype enabled hot plugging of Digital integrators and supported arbitrary length Digital integrator UTP cables. Captured UDP packets were checked for data continuity and CRC errors – all tests passed without issue. A stress test checking the Digital integrators data stream decoding stability was also ran for 6 full days before a single CRC error was detected.  
-
-The deliverables for this task include: 
-
-Custom Digital integrators breakout board – developed for this task to enable connection of 4 Digital integrator RJ45 interfaces to the Lattice ECP5 EVN board I/O headers. 
-
-Lattice EC5 EVN board specific clocking primitives instantiation to clock the data streams decoding logic at the correct frequency. 
-
-Digital integrators received data stream 4x oversampling logic and modified streamed packets decoding module (original made for Xilinx platform received from F4E) 
-
-Digital integrator data to HotRIO packeting module 
-
-HotRIO to UDP packets conversion module 
-
-ECP5 master top module 
-
-ECP5 slave top module 
-
-UDP packets capture Python script (to be run on PC) 
-\subsubsection{Foo}
-iThe task was to implement a FPGA design for the Trenz TEB0911 carrier board that can generate RTDN test packets synchronously across multiple Ethernet channels. The target platform supports several FMC connectors, each of which can host multi-lane SFP hardware (TEF008), so the design was structured to scale by FMC site. To support that, we built a parameterized configuration flow based on a Jinja2 template that generates the project YAML description, memory map entries, enabled constraints, and the list of FMC subsystems to instantiate. 
-
-The hardware itself is assembled through reusable TCL scripts. The top-level block design creates the base Zynq MPSoC system, then instantiates a packet-generation hierarchy and a set of FMC Ethernet hierarchies. For every enabled lane, the design creates an Ethernet path with MAC and UDP logic and connects it to a matching RTDI/RTDN packet source.  
-
- An important project-specific change is the addition of external timing support. In this revision, the FMC-E connector is used not for Ethernet but for a custom FMC card that supplies pulse-per-second and start/stop trigger signals. These inputs drive a dedicated timestamp generator, and the local RTDI packetizer was modified so that the externally synchronized timestamp can be inserted directly into each generated packet. This allows the transmitted RTDN packets to carry timing information aligned to the PPS reference.  
-
-The task was brought to the stage where we started testing the design on the board. Since there were substantial delays in shipment of needed hardware, the testing could only start couple of days before project deadline when the task had to be stopped. As for now, the ethernet core does not work and more tests are needed. The testing process and proposed next steps are documented on Git.  
 \subsubsection{Board Porting}
 
 FMC intergration 
@@ -508,8 +635,6 @@ Testing the FMC operation with various SPI speeds and sampling clock frequencies
 
 asdasdkjalsdkjasd
 
-
-
 \subsubsection{Foo}
 The aim of the task was to go as far as possible into interfacing with the FMC LXD31K4 from Logic-X. The received work in progress project could not work and presented too much interfaces inconsistencies with datasheets to proceed as-is. The previous master branch was archived and design started from scratch.
 
@@ -531,7 +656,93 @@ The FMC requires I2C access from the carrier to set-up the power. By default, th
 
 Once the I2C access is made the next step is to initialize the FMC with SPI and then observe the ADC data on ILA
 
-\subsection{Workstream 4}
+\subsubsection{Interoperability}
+
+% Heterogeneity
+Finally, implementing a specific diagnostic application
+
+% TODO 
+
+% EXAMPLE OF VERBIAGE : What else woult it be ?
+One of the key design principles for the NIMBUS platform is to support a broad range
+of data acquisition and real-time processing.  The platform 
+% 3 interfaces : streaming, real-time, supervisory
+
+% Could relegate DL to a comment, since it is one of the weaker examples.	
+\subsubsection{Remote }
+
+The goal of this task was to enable DMA engine on the Iris board, implement a DMA bypass controller and to make a user-space C program that can configure the DMA via the DMA bypass controller going through the PCIe bus. The deliverables are:
+
+C library for controlling Xilinx XDMA with interfaces for DMA channel control, bypass descriptor transfers, and high-level abstractions for controlling ADC emulators and bypass controller.
+
+Utilities for reading/writing registers, configuring DMA transfers, and managing memory-mapped device regions with automatic page-alignment handling.
+
+Documentation and demo script
+
+\subsubsection{Foo}
+
+The task was to implement a FPGA design for the Trenz TEB0911 carrier board that can generate RTDN test packets synchronously across multiple Ethernet channels. The target platform supports several FMC connectors, each of which can host multi-lane SFP hardware (TEF008), so the design was structured to scale by FMC site. To support that, we built a parameterized configuration flow based on a Jinja2 template that generates the project YAML description, memory map entries, enabled constraints, and the list of FMC subsystems to instantiate. 
+
+The hardware itself is assembled through reusable TCL scripts. The top-level block design creates the base Zynq MPSoC system, then instantiates a packet-generation hierarchy and a set of FMC Ethernet hierarchies. For every enabled lane, the design creates an Ethernet path with MAC and UDP logic and connects it to a matching RTDI/RTDN packet source.  
+
+ An important project-specific change is the addition of external timing support. In this revision, the FMC-E connector is used not for Ethernet but for a custom FMC card that supplies pulse-per-second and start/stop trigger signals. These inputs drive a dedicated timestamp generator, and the local RTDI packetizer was modified so that the externally synchronized timestamp can be inserted directly into each generated packet. This allows the transmitted RTDN packets to carry timing information aligned to the PPS reference.  
+
+The task was brought to the stage where we started testing the design on the board. Since there were substantial delays in shipment of needed hardware, the testing could only start couple of days before project deadline when the task had to be stopped. As for now, the ethernet core does not work and more tests are needed. The testing process and proposed next steps are documented on Git.  
+
+% Consider dropping this
+\subsubsection{Deep Learning}
+
+The task was about implementing Xilinx DPUCZDX8G v4.1 Deep Learning Processing Unit for AI/ML inference acceleration onto Nimbus board. A pre-existing ML model (ResNet50) for image classification was used for testing. The deliverables are: 
+
+Koheron project that includes FPGA implementation of DPU core. 
+
+Petalinux project which includes DPU specific modifications and Python application that loads the ML model to DPU core and runs inference. UKAEA only uses kernel part of Petalinux and joins it with Ubuntu root file system.  
+
+Bash script that installs Vitis AI libraries to Ubuntu which enables running Python application mentioned in the previous point.  
+
+\subsubsection{HotRIO Aggregator}
+
+This task was defined in collaboration with Fusion for Energy, who have created HotRIO: a low latecy control system with saclable distributed I/O 
+based on FPGA processing with a specific fiber communications protocol.
+The goal was to create a proof-of-concept aggregator device on Lattice ECP5 platform for the Digital integrators (used for magnetic field measurements at ITER). This would mean F4E could use a cheap and lightweight aggregator device to make the magnetic field measurement equipment compact and mobile. The aggregator device would be able to accept data streams from four Digital integrators and send the data over a single HotRIO interface. 
+
+For development and testing, two devices were planned – the first as the aggregator (master ECP5 board) and the second (slave ECP5 board) to receive HotRIO packets and forward them on to a UDP gigabit interface. The UDP packets can then be gathered and verified from any PC. All functionality of the master ECP5 board can be tested and verified in this way. 
+
+Testing on the finished devices was done to confirm the finished prototype enabled hot plugging of Digital integrators and supported arbitrary length Digital integrator UTP cables. Captured UDP packets were checked for data continuity and CRC errors – all tests passed without issue. A stress test checking the Digital integrators data stream decoding stability was also ran for 6 full days before a single CRC error was detected.  
+
+The deliverables for this task include: 
+
+Custom Digital integrators breakout board – developed for this task to enable connection of 4 Digital integrator RJ45 interfaces to the Lattice ECP5 EVN board I/O headers. 
+
+Lattice EC5 EVN board specific clocking primitives instantiation to clock the data streams decoding logic at the correct frequency. 
+
+Digital integrators received data stream 4x oversampling logic and modified streamed packets decoding module (original made for Xilinx platform received from F4E) 
+
+Digital integrator data to HotRIO packeting module 
+
+HotRIO to UDP packets conversion module 
+
+ECP5 master top module 
+
+ECP5 slave top module 
+
+UDP packets capture Python script (to be run on PC) 
+s
+\subsubsection{Ultrafast Divertor Spectroscopy}
+
+The initial task was to develop cocotb unit tests and then top-level tests to validate the VHDL implementation of the UFDS tracking algorithm. The task increased into integration into D-TACQ ACQ2106 platform, customer interface with DIFFER and commissioning of the platform on site.
+
+The project deliverables are all in the same repository and are:
+
+VHDL UFDS top level implementation
+
+Python reference algorithm class and testbenches (unit and top level)
+
+D-TACQ integration modules + UDP packetizer + ADC input multiplexer + Data emulator for debug
+
+Documentation in Markdown in the repository
+
+ubsection{Workstream 4}
 
 \subsubsection{Fusionics Strategy}
 
@@ -592,10 +803,40 @@ Architectural progress has been made at the domain level (MBSE)
 and at the practical configuration management level (PoC)
 
 At the configuration management level, 
+
 \subsection{2}
+
+Composable frameworks with maintainable qualities and lifecycle are important.
+
+In software, there are several : GA-PCS, AUG-DCS, ITER RTF, MARTe2.  The latter 
+two are decoupled, though RTF is not yet open source (TBA?).  Tooling is not
+yet fully general, though the Sinulink pattern comes close.
+
+At the electronic level, latencies above 100kHz, there is a need for
+interfaces.  NI examples exist, likewise DTACQ, and both of these 
+provide tools for rapid application development.  Why then create
+open hardware ?  The benefits are avoidance of vendor lock-in, 
+retaining knowledge, enabling fault finding to very low level.
+
+It also enables the code, and only the code required.
+Vendors in the supply chain make a perfectly valid point
+which is that their tools, approach, also good.
+Cite the NI robot surgeon.
+However, as FISA says, at present, the supply chain alignment
+with Fusion requirements is serendipitous, not strategic.
+If the T&M, or other supply chains diverge, the present
+support can vary.  
+
+Fusionics principle that there should exist reference implementations
+addresses this strategic risk.
+
 
 Two public fusion organisations, UKAEA and F4E, have independently identified 
 a requirement to create open hardware solutions, NIMBUS and HotRIO.
+HotRIO targets highly deterministic data exchange up to low MHz range.
+Nimbus targets highly complex applications starting from low MHz and
+up to GHz.  
+
 
 
 \subsection{3}
@@ -607,6 +848,10 @@ Options to have  table 1,2,3
 \subsubsection{Architecture}
 
 \section{Conclusion}
+
+The authors welcome engagement from other researchers and fusion industry companies.
+
+Next steps will include creating
 
 \section{Abbreviations}
 
