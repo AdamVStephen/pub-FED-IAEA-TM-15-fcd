@@ -22,8 +22,8 @@
 %%\documentclass[preprint,12pt]{elsarticle}
 
 \newif\ifpreprint
-\preprinttrue
-%\preprintfalse
+%\preprinttrue
+\preprintfalse
 %
 
 \ifpreprint
@@ -62,6 +62,7 @@
 
 % Own Packages
 %\usepackage{float}
+\usepackage{tabularx}
 \usepackage{nomencl}
 \makenomenclature
 % Take nomenclature title from a section named Glossary to conform to Elsevier guidance for authors
@@ -159,6 +160,7 @@ The funding programme placed strong emphasis on industrial engagement and commer
 
 %% main text
 %%
+\end{frontmatter}
 
 % RENAME Materials and Methods, but that is the spirit
 \section{Introduction}
@@ -293,16 +295,17 @@ Based on this research, a conceptual design was defined for a Configuration Mana
 
 To validate the key architectural concepts and demonstrate feasibility, a software prototype was developed. The prototype implements the core governance mechanisms including role-based access control, multi-stage validation, configuration inheritance, and integrity checking, and serves as a concrete proof-of-concept for the conceptual design.  The overall architecture is shown in \ref{fig:cms}.
 
-\begin{figure}[t]%% placement specifier
+%\begin{figure}[t]%% placement specifier
+\begin{figure*}[t]%% placement specifier : TO GO ACROSS BOTH COLUMNS
 %% Use \includegraphics command to insert graphic files. Place graphics files in 
 %% working directory.
 \centering%% For centre alignment of image.
-\includegraphics{CMS.png}
+	\includegraphics[width=\textwidth]{CMS.png}
 %% Use \caption command for figure caption and label.
 % Ref slide 29
 	\caption{Configuration Management System (CMS) End Point Interactions}\label{fig:cms}
 %% https://en.wikibooks.org/wiki/LaTeX/Importing_Graphics#Importing_external_graphics
-\end{figure}
+\end{figure*}
 
 
 The programme was truncated early, so the proof of concept requires further work before sharing with the community.
@@ -336,18 +339,20 @@ A key capability developed was the integration of EPICS Channel Access as a comm
 
 On the software engineering side, the project resulted in a bespoke test automation framework built on pytest, FastAPI, and SQLite, featuring real-time WebSocket output streaming, structured test steps with entry/dwell/exit phases, a configurable alarm evaluator, and a stimulus generation library. Complementing these, a web-based GUI was developed to give operators a single interface for test discovery, execution, live monitoring, historical comparison, and self-contained HTML report generation. The combination of these components reflects a mature understanding of how operator-facing tooling and automated CI pipelines can share the same underlying test infrastructure.
 
-\begin{figure}[t]%% placement specifier
+%\begin{figure}[t]%% placement specifier%
+%\begin{figure}[t]%% placement specifier
+\begin{figure*}[t]%% placement specifier : TO GO ACROSS BOTH COLUMNS
 %% Use \includegraphics command to insert graphic files. Place graphics files in 
 %% working directory.
 \centering%% For centre alignment of image.
 % Page 17 
-\includegraphics{HIL1.png}
+	\includegraphics[width=\textwidth]{HIL1.png}
 %\includegraphics{HIL2.png}
 %% Use \caption command for figure caption and label.
 \caption{Overall architecture for the HIL testing framework.}\label{fig:hilarch}
 %\caption{HIL components and interactions.}\label{fig:hilcomp}
 %% https://en.wikibooks.org/wiki/LaTeX/Importing_Graphics#Importing_external_graphics
-\end{figure}
+\end{figure*}
 
 
 Deliverables:
@@ -447,16 +452,18 @@ Koheron abstracts a common pattern in FPGA designs which is the need to provide
 software drivers that enable control of the firmware.
 See \ref{fig:nimbus-floorplan}.
 
-\begin{figure}[t]%% placement specifier
+%\begin{figure}[t]%% placement specifier
+%\begin{figure}[t]%% placement specifier
+\begin{figure*}[t]%% placement specifier : TO GO ACROSS BOTH COLUMNS
 %% Use \includegraphics command to insert graphic files. Place graphics files in 
 %% working directory.
 \centering%% For centre alignment of image.
-\includegraphics{NimbusFloorplan}
+	\includegraphics[width=\textwidth]{NimbusFloorplan.png}
 %% Use \caption command for figure caption and label.
 % Ref slide 12
 \caption{Nimbus floorplan}\label{fig:nimbus-floorplan}
 %% https://en.wikibooks.org/wiki/LaTeX/Importing_Graphics#Importing_external_graphics
-\end{figure}
+\end{figure*}
 
 
 The first application for this platform was neutron measurement.  Combining
@@ -468,7 +475,7 @@ This range, and the typical applications is
 table\ref{table:nimbus}.
 
 % TABLE
-\begin{table}[htbp]
+\begin{table*}[htbp]
 \centering
 \caption{Key specifications and typical applications.}
 \label{tab:key-specifications}
@@ -508,7 +515,7 @@ or 16 G aurora interfaces
 
 \hline
 \end{tabularx}
-\end{table}
+\end{table*}
 
 Developing a new NIMBUS model requires N steps.  Each requires certain engineering skills
 and must be completed taking account of testing, quality, and documentation. 
@@ -539,16 +546,19 @@ The design philosophy underpinning Nimbus is to provide a distributed ecosystem
 which can integrate a range of measurement and control functions.
 The support for real-time data exchange is described in \ref{}
 
-\begin{figure}[t]%% placement specifier
-%% Use \includegraphics command to insert graphic files. Place graphics files in 
-%% working directory.
-\centering%% For centre alignment of image.
-\includegraphics{nimbus-ecosystem}
-%% Use \caption command for figure caption and label.
-% Ref slide 13
-\caption{Nimbus ecosystem}\label{fig4}
-%% https://en.wikibooks.org/wiki/LaTeX/Importing_Graphics#Importing_external_graphics
-\end{figure}
+%%\begin{figure}[t]%% placement specifier
+%%\begin{figure}[t]%% placement specifier
+%\begin{figure*}[t]%% placement specifier : TO GO ACROSS BOTH COLUMNS
+%%% Use \includegraphics command to insert graphic files. Place graphics files in 
+%%% working directory.
+%\centering%% For centre alignment of image.
+%%\includegraphics{NimbusEcosystem.png}
+%	\includegraphics[width=\textwidth]{NimbusEcosystem.png}
+%%% Use \caption command for figure caption and label.
+%% Ref slide 13
+%\caption{Nimbus ecosystem}\label{fig4}
+%%% https://en.wikibooks.org/wiki/LaTeX/Importing_Graphics#Importing_external_graphics
+%\end{figure*}
 
 
 
@@ -661,16 +671,19 @@ The task was brought to the stage where we started testing the design on the boa
 
 See \ref{fig:nimbus-ecosystem}.
 
-\begin{figure}[t]%% placement specifier
+%\begin{figure}[t]%% placement specifier
+%\begin{figure}[t]%% placement specifier
+\begin{figure*}[t]%% placement specifier : TO GO ACROSS BOTH COLUMNS
 %% Use \includegraphics command to insert graphic files. Place graphics files in 
 %% working directory.
 \centering%% For centre alignment of image.
-	\includegraphics{NimbusEcosystem}
+	%\includegraphics{NimbusEcosystem}
+	\includegraphics[width=\textwidth]{NimbusEcosystem.png}
 %% Use \caption command for figure caption and label.
 % Ref slide 12
 \caption{Nimbus floorplan}\label{fig:nimbus-ecosystem}
 %% https://en.wikibooks.org/wiki/LaTeX/Importing_Graphics#Importing_external_graphics
-\end{figure}
+\end{figure*}
 
 
 % Consider dropping this
@@ -736,13 +749,13 @@ During the 2026 maintenance period, MAST-U will replace 384 channels of analogue
 real-time digital integrator (RTDI) upgrades.  The resulting
 
 % cite
-TODO: motivate DPDK [ cite ]
+%TODO: motivate DPDK [ cite ]
 
 \subsubsection{Component UDP Receiver}
-This task extended the existing DPDK multi-queue UDP receiver (dpdk_mp_udp) to gate packet acquisition on an external hardware trigger, aligning latency measurements with the true start of a data acquisition window. A dedicated trigger thread listens for an External Timestamp (EXTTS) event on a configurable PTP device and, on a valid trigger, publishes the hardware timestamp T0 to worker cores via atomic flags. Worker cores spin on the trigger flag before starting packet reception and use T0 as the absolute time reference for converting FPGA tick counter values into latency measurements.
+This task extended the existing DPDK multi-queue UDP receiver  to gate packet acquisition on an external hardware trigger, aligning latency measurements with the true start of a data acquisition window. A dedicated trigger thread listens for an External Timestamp (EXTTS) event on a configurable PTP device and, on a valid trigger, publishes the hardware timestamp T0 to worker cores via atomic flags. Worker cores spin on the trigger flag before starting packet reception and use T0 as the absolute time reference for converting FPGA tick counter values into latency measurements.
 
 \subsubsection{Component UDP Sender}
-This task implemented a DPDK-based UDP sender to complement the existing receiver programs, enabling loopback latency measurement. The architecture follows a primary/secondary DPDK multi-process model: a primary TX server process owns the NIC and manages hardware TX queues, while one or more secondary producer processes independently enqueue packets into shared rte_ring software queues. This allows multiple producers to target different TX queues concurrently without owning the NIC directly. 
+This task implemented a DPDK-based UDP sender to complement the existing receiver programs, enabling loopback latency measurement. The architecture follows a primary/secondary DPDK multi-process model: a primary TX server process owns the NIC and manages hardware TX queues, while one or more secondary producer processes independently enqueue packets into shared software queues. This allows multiple producers to target different TX queues concurrently without owning the NIC directly. 
 
 The TX server reads a YAML configuration file to set up one software ring and one hardware TX queue per logical channel and launches one worker core per queue to drain the rings and transmit packets. Rings are created as multi-producer/single-consumer by default to support multiple concurrent producers. Each producer runs as a DPDK secondary process, enqueuing RTDN-formatted UDP packets at a configurable rate with an embedded TX timestamp, enabling the receiver to compute end-to-end loopback latency. 
 
